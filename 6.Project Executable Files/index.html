@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Revolution: Electric Vehicles & Data Insights</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts - Inter for a clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS - New Teal/Green Color Scheme */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Lighter background */
+            color: #343a40;
+        }
+        .navbar {
+            background-color: #20c997; /* Vibrant Teal */
+            box-shadow: 0 2px 8px rgba(0,0,0,.15);
+            transition: background-color 0.3s ease-in-out;
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            transition: color 0.3s ease-in-out;
+        }
+        /* Custom styling for the multi-colored logo */
+        .navbar-brand .ev-color {
+            color: #1a4f40; /* Darker complementary green for "EV" */
+        }
+        .navbar-brand .revolution-color {
+            color: #fff; /* White for "Revolution" */
+        }
+
+        .nav-link:hover {
+            color: #e6fffa !important; /* Lighter teal on hover */
+            transform: translateY(-2px);
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://placehold.co/1920x800/20c997/ffffff?text=Electric+Vehicle+Future') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 0 6px 15px rgba(0,0,0,.25);
+        }
+        .section-padding {
+            padding: 80px 0;
+        }
+        .card {
+            border-radius: 20px; /* More rounded corners */
+            box-shadow: 0 6px 20px rgba(0,0,0,.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-12px); /* Slightly more lift */
+            box-shadow: 0 10px 30px rgba(0,0,0,.2);
+        }
+        .btn-primary {
+            background-color: #20c997; /* Vibrant Teal */
+            border-color: #20c997;
+            border-radius: 30px; /* More rounded buttons */
+            padding: 12px 35px; /* Larger buttons */
+            font-weight: 600;
+            transition: background-color 0.3s, border-color 0.3s, transform 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #1aa079; /* Darker teal on hover */
+            border-color: #1aa079;
+            transform: translateY(-2px);
+        }
+        .btn-outline-light {
+            border-color: #fff;
+            color: #fff;
+            border-radius: 30px;
+            padding: 12px 35px;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s ease-in-out;
+        }
+        .btn-outline-light:hover {
+            background-color: #fff;
+            color: #20c997; /* Teal text on hover */
+            transform: translateY(-2px);
+        }
+        .btn-outline-primary {
+            border-color: #20c997; /* Teal */
+            color: #20c997;
+            border-radius: 30px;
+            padding: 12px 35px;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s ease-in-out;
+        }
+        .btn-outline-primary:hover {
+            background-color: #20c997;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .footer {
+            background-color: #1a4f40; /* Darker complementary green */
+            color: #e6fffa;
+            padding: 50px 0;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+        }
+        .icon-feature {
+            font-size: 3.5rem; /* Slightly larger icons */
+            color: #20c997; /* Teal color for icons */
+            margin-bottom: 25px;
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .icon-feature:hover {
+            color: #1aa079; /* Darker teal on hover */
+            transform: scale(1.1);
+        }
+        .form-control {
+            border-radius: 15px; /* More rounded form fields */
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .form-control:focus {
+            border-color: #20c997;
+            box-shadow: 0 0 0 0.25rem rgba(32, 201, 151, 0.25); /* Teal focus glow */
+        }
+        textarea {
+            resize: vertical;
+        }
+
+        /* Tableau Embed Specific Styles (Responsive) */
+        .tableau-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,.1);
+        }
+        .tableau-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">
+                <i class="fas fa-car-battery me-2"></i><span class="ev-color">Plug</span> <span class="revolution-color">MyRide</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#vehicles">Electric Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#charging">Charging Points</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#performance">Performance & Speed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tableau-dashboard">Tableau Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tableau-stories">Tableau Stories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#benefits">Benefits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section d-flex align-items-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Drive the Future: Electric, Sustainable, Powerful.</h1>
+            <p class="lead mb-5">Explore the world of electric vehicles, efficient charging solutions, and exhilarating performance that redefines your journey.</p>
+            <a href="#vehicles" class="btn btn-primary btn-lg me-3">Explore EVs</a>
+            <a href="#contact" class="btn btn-outline-light btn-lg">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Electric Vehicles Section -->
+    <section id="vehicles" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Our Electric Vehicle Lineup</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100 p-3">
+                        <img src="https://placehold.co/400x250/20c997/ffffff?text=EV+Sedan" class="card-img-top rounded-top" alt="EV Sedan">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Urban Commuter Sedan</h5>
+                            <p class="card-text">Sleek design, long range, perfect for daily city commutes and weekend getaways. Equipped with advanced safety features.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 p-3">
+                        <img src="https://placehold.co/400x250/1aa079/ffffff?text=EV+SUV" class="card-img-top rounded-top" alt="EV SUV">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Adventure-Ready SUV</h5>
+                            <p class="card-text">Spacious interior, powerful AWD, and robust performance for family adventures. Eco-friendly with zero emissions.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 p-3">
+                        <img src="https://placehold.co/400x250/0f7e59/ffffff?text=EV+Sports+Car" class="card-img-top rounded-top" alt="EV Sports Car">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">High-Performance Sports Car</h5>
+                            <p class="card-text">Experience thrilling acceleration and precision handling. Electric power meets adrenaline in this masterpiece.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charging Points Section -->
+    <section id="charging" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Effortless Charging, Anywhere</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <img src="https://placehold.co/600x400/20c997/ffffff?text=Charging+Station" class="img-fluid rounded-4 shadow-lg" alt="Charging Station">
+                </div>
+                <div class="col-md-6">
+                    <p class="lead mb-4">Our extensive network and innovative charging solutions ensure you're always ready to go. From home chargers to public fast-charging stations, we've got you covered.</p>
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="fas fa-charging-station icon-feature me-3"></i>
+                        <div>
+                            <h5 class="fw-bold">Public Charging Network</h5>
+                            <p>Access thousands of charging points across cities and highways. Compatible with all major EV models.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="fas fa-home icon-feature me-3"></i>
+                        <div>
+                            <h5 class="fw-bold">Home Charging Solutions</h5>
+                            <p>Convenient and fast home charging installations for your garage or driveway.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <i class="fas fa-bolt icon-feature me-3"></i>
+                        <div>
+                            <h5 class="fw-bold">Ultra-Fast DC Charging</h5>
+                            <p>Get up to 80% charge in just 20-30 minutes with our high-power DC chargers.</p>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-outline-primary mt-4">Find Charging Points</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance & Speed Section -->
+    <section id="performance" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Unleash Electric Performance</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100">
+                        <i class="fas fa-tachometer-alt icon-feature"></i>
+                        <h5 class="fw-bold">Instant Torque</h5>
+                        <p>Experience exhilarating acceleration from 0 to 60 mph in mere seconds, silently and smoothly.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100">
+                        <i class="fas fa-road icon-feature"></i>
+                        <h5 class="fw-bold">Superior Handling</h5>
+                        <p>Low center of gravity provides exceptional stability and precise handling on every curve.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100">
+                        <i class="fas fa-charging-station icon-feature"></i>
+                        <h5 class="fw-bold">Optimized Range</h5>
+                        <p>Advanced battery technology ensures impressive range, making long journeys worry-free.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tableau Dashboard Section -->
+    <section id="tableau-dashboard" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">EV Car Insights Dashboard</h2>
+            <p class="lead text-center mb-5">Explore interactive data visualizations about the electric vehicle market, trends, and growth, powered by Tableau.</p>
+            <div class='tableauPlaceholder' id='viz1750764433713' style='position: relative'><noscript><a href='#'><img alt='Dashboard 2 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;8F&#47;8FMQ3RPGY&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='path' value='shared&#47;8FMQ3RPGY' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;8F&#47;8FMQ3RPGY&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1750764433713');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1300px';vizElement.style.height='3027px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1300px';vizElement.style.height='3027px';} else { vizElement.style.width='100%';vizElement.style.height='3227px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+        </div>
+        
+    </section>
+
+    <!-- Tableau Stories Section -->
+    <section id="tableau-stories" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">EV Revolution: Data Stories</h2>
+            <p class="lead text-center mb-5">Dive into compelling narratives and key insights through a series of interactive Tableau stories, highlighting the impact and future of electric mobility.</p>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class='tableauPlaceholder' id='viz1750764741518' style='position: relative'><noscript><a href='#'><img alt='Story Board For Electric Vehicles ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;el&#47;electricvehiclestrories&#47;StoryBoardForElectricVehicles&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='electricvehiclestrories&#47;StoryBoardForElectricVehicles' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;el&#47;electricvehiclestrories&#47;StoryBoardForElectricVehicles&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1750764741518');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1016px';vizElement.style.height='991px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Why Choose Electric?</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center mb-3">
+                            <i class="fas fa-leaf fa-2x text-success me-3"></i>
+                            <div>
+                                <h5 class="fw-bold">Zero Emissions</h5>
+                                <p class="mb-0">Contribute to a cleaner environment with no tailpipe emissions.</p>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <i class="fas fa-wallet fa-2x text-info me-3"></i>
+                            <div>
+                                <h5 class="fw-bold">Lower Running Costs</h5>
+                                <p class="mb-0">Save on fuel and maintenance with simpler electric powertrains.</p>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <i class="fas fa-handshake fa-2x text-warning me-3"></i>
+                            <div>
+                                <h5 class="fw-bold">Government Incentives</h5>
+                                <p class="mb-0">Benefit from various tax credits and subsidies for EV ownership.</p>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <i class="fas fa-lightbulb fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5 class="fw-bold">Quiet & Smooth Ride</h5>
+                                <p class="mb-0">Enjoy a remarkably quiet and vibration-free driving experience.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://placehold.co/600x400/20c997/ffffff?text=Eco-Friendly+Driving" class="img-fluid rounded-4 shadow-lg" alt="Eco-Friendly Driving">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Get in Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" placeholder="Inquiry Subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Your message here..." required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2025 EV Revolution. All rights reserved.</p>
+            <div class="social-icons mb-3">
+                <a href="#" class="text-light mx-2"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-light mx-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-light mx-2"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-light mx-2"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p><a href="#" class="text-light">Privacy Policy</a> | <a href="#" class="text-light">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- Smooth Scrolling JavaScript -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
